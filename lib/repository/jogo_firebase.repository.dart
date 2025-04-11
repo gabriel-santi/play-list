@@ -1,7 +1,13 @@
 import 'package:play_list/model/jogo.dart';
 import 'package:play_list/repository/jogo.repository.dart';
 
-class JogoFirebaseService implements JogoRepository {
+class JogoFirebaseRepository implements JogoRepository {
+  JogoFirebaseRepository._();
+
+  static final _instance = JogoFirebaseRepository._();
+
+  static get instance => _instance;
+
   @override
   Future<void> addJogo(Jogo jogo) async {
     // TODO: implement addJogo

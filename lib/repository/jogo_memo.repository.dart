@@ -1,10 +1,10 @@
 import 'package:play_list/model/jogo.dart';
 import 'package:play_list/repository/jogo.repository.dart';
 
-class JogoMemoService implements JogoRepository {
-  JogoMemoService._();
+class JogoMemoryRepository implements JogoRepository {
+  JogoMemoryRepository._();
 
-  static final _instance = JogoMemoService._();
+  static final _instance = JogoMemoryRepository._();
 
   static get instance => _instance;
 
