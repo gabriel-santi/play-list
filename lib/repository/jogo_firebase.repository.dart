@@ -1,5 +1,5 @@
 import 'package:play_list/model/jogo.dart';
-import 'package:play_list/service/jogo.service.dart';
+import 'package:play_list/repository/jogo.repository.dart';
 
 class JogoFirebaseService implements JogoRepository {
   @override
