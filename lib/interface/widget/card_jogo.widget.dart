@@ -25,6 +25,10 @@ class CardJogoWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(kRadiusM - 2),
               child: Image.network(
                 urlImagem,
+                errorBuilder: (context, _, __) => Container(
+                  color: Colors.grey[300],
+                  child: const Icon(Icons.image_not_supported, color: Colors.grey),
+                ) ,
                 fit: BoxFit.fill,
               ),
             ),
