@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:play_list/interface/app.module.dart';
-import 'package:play_list/interface/controller/add_jogo.controller.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:play_list/interface/controller/add_jogo/add_jogo.controller.dart';
+import 'package:play_list/interface/utils/constant.dart';
 import 'package:play_list/interface/widget/input_texto.widget.dart';
 
-class AddJogoPopup extends StatefulWidget {
+class AddJogoPopup extends ConsumerStatefulWidget {
   const AddJogoPopup({super.key});
 
   @override
-  State<AddJogoPopup> createState() => _AddJogoPopupState();
+  ConsumerState<AddJogoPopup> createState() => _AddJogoPopupState();
 }
 
-class _AddJogoPopupState extends State<AddJogoPopup> {
+class _AddJogoPopupState extends ConsumerState<AddJogoPopup> {
   final TextEditingController _jogoController = TextEditingController();
   final TextEditingController _urlController = TextEditingController();
-  final AddJogoController _controller = AddJogoController(AppModule.jogoRepository);
 
   @override
   void dispose() {
@@ -22,18 +22,11 @@ class _AddJogoPopupState extends State<AddJogoPopup> {
     super.dispose();
   }
 
-  void _aoSalvar() async {
-    try{
-      await _controller.adicionarJogo(_jogoController.text, _urlController.text);
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Jogo adicionado com sucesso!")));
-      Navigator.of(context).pop();
-    }catch(e){
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    final controller = ref.watch(addJogoControllerProvider);
+    final notifier = ref.read(addJogoControllerProvider.notifier);
+
     return SimpleDialog(
       title: const Text("Adicionar jogo"),
       contentPadding: const EdgeInsets.symmetric(horizontal: Sizes.p20, vertical: Sizes.p20),
@@ -47,23 +40,40 @@ class _AddJogoPopupState extends State<AddJogoPopup> {
           label: "Imagem URL",
           controller: _urlController,
         ),
-        const SizedBox(height: 10),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: Sizes.p12),
+          child: controller.mensagemErro != null
+              ? Text(
+                  controller.mensagemErro!,
+                  style: const TextStyle(color: Colors.redAccent),
+                )
+              : const SizedBox.shrink(),
+        ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(Sizes.p12),
-            ),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Sizes.p12)),
             padding: const EdgeInsets.symmetric(horizontal: Sizes.p24, vertical: Sizes.p12),
           ),
-          onPressed: _aoSalvar,
-          child: const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.check),
-              gapH8,
-              Text("Salvar"),
-            ],
-          ),
+          onPressed: controller.loading
+              ? null
+              : () async {
+                  await notifier.adicionarJogo(_jogoController.text, _urlController.text);
+                  if (context.mounted) Navigator.pop(context);
+                },
+          child: controller.loading
+              ? const SizedBox(
+                  height: Sizes.p20,
+                  width: Sizes.p20,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                )
+              : const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.check),
+                    gapH8,
+                    Text("Salvar"),
+                  ],
+                ),
         ),
       ],
     );
