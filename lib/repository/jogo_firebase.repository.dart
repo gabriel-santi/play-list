@@ -1,14 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_list/model/jogo.dart';
 import 'package:play_list/repository/jogo.repository.dart';
 
+final jogoRepositoryProvider = Provider<JogoRepository>((ref) {
+  return JogoFirebaseRepository();
+});
+
+final jogosListProvider = FutureProvider<List<Jogo>>((ref){
+  final repo = ref.watch(jogoRepositoryProvider);
+  return repo.getJogos();
+});
+
 class JogoFirebaseRepository implements JogoRepository {
-  JogoFirebaseRepository._();
-
-  static final _instance = JogoFirebaseRepository._();
-
-  static get instance => _instance;
-
   @override
   Future<void> addJogo(Jogo jogo) async {
     try {
@@ -36,5 +40,5 @@ class JogoFirebaseRepository implements JogoRepository {
 
 class ErroConexao implements Exception {
   @override
-  String toString() => "Erro ao conectar!!";
+  String toString() => "Erro ao conectar!";
 }
