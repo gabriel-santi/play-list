@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:play_list/interface/constants.dart';
+import 'package:play_list/interface/utils/constant.dart';
 
 class InputTextoWidget extends StatelessWidget {
   final String label;
@@ -13,17 +13,17 @@ class InputTextoWidget extends StatelessWidget {
       decoration: InputDecoration(
         labelText: label,
         enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(kRadiusM),
+            borderRadius: BorderRadius.circular(Sizes.p12),
             borderSide: BorderSide(
               color: Colors.orangeAccent.withOpacity(.5),
             )),
         focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(kRadiusM),
+            borderRadius: BorderRadius.circular(Sizes.p12),
             borderSide: BorderSide(
               color: Colors.orangeAccent.withOpacity(.5),
             )),
         disabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(kRadiusM),
+            borderRadius: BorderRadius.circular(Sizes.p12),
             borderSide: BorderSide(
               color: Colors.orangeAccent.withOpacity(.5),
             )),

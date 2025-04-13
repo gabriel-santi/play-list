@@ -36,13 +36,13 @@ class _AddJogoPopupState extends State<AddJogoPopup> {
   Widget build(BuildContext context) {
     return SimpleDialog(
       title: const Text("Adicionar jogo"),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      contentPadding: const EdgeInsets.symmetric(horizontal: Sizes.p20, vertical: Sizes.p20),
       children: [
         InputTextoWidget(
           label: "Jogo",
           controller: _jogoController,
         ),
-        const SizedBox(height: 10),
+        gapH12,
         InputTextoWidget(
           label: "Imagem URL",
           controller: _urlController,
@@ -51,16 +51,16 @@ class _AddJogoPopupState extends State<AddJogoPopup> {
         ElevatedButton(
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(Sizes.p12),
             ),
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+            padding: const EdgeInsets.symmetric(horizontal: Sizes.p24, vertical: Sizes.p12),
           ),
           onPressed: _aoSalvar,
           child: const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(Icons.check),
-              SizedBox(width: 10),
+              gapH8,
               Text("Salvar"),
             ],
           ),
