@@ -1,4 +1,5 @@
 import 'package:play_list/model/data.dart';
+import 'package:play_list/model/erro_model.dart';
 
 class Jogo {
   final String nome;
@@ -38,12 +39,12 @@ class Jogo {
   }
 }
 
-class NomeInvalido implements Exception {
+class NomeInvalido implements ErroModel {
   @override
   String toString() => "Insira um nome válido";
 }
 
-class UrlInvalida implements Exception {
+class UrlInvalida implements ErroModel {
   @override
   String toString() => "Insira uma URL válida";
 }

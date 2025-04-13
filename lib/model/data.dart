@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:play_list/model/erro_model.dart';
 
 class Data {
   final DateTime valor;
@@ -22,7 +23,7 @@ class Data {
   }
 }
 
-class FormatoDataInvalido implements Exception {
+class FormatoDataInvalido implements ErroModel {
   @override
   String toString() => "Formato de data inválido";
 }
