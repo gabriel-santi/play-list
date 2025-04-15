@@ -18,7 +18,8 @@ class AddJogoController extends AutoDisposeNotifier<AddJogoState> {
       await repo.addJogo(jogo);
 
       state = AddJogoState();
-      // TODO refresh the jogos list
+
+      ref.invalidate(jogosListProvider);
     } on ErroModel catch (e) {
       state = state.copyWith(loading: false, erro: e.toString());
     } on ErroConexao catch (e) {
