@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:play_list/firebase_options.dart';
-import 'package:play_list/interface/page/home.page.dart';
+import 'package:play_list/interface/route/app_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,13 +17,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Flutter Demo',
+    return MaterialApp.router(
+        title: 'Play-list',
+        routerConfig:  appRouter,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.orangeAccent),
           useMaterial3: true,
         ),
         debugShowCheckedModeBanner: false,
-        home: const HomePage());
+    );
   }
 }
